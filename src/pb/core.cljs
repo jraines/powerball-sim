@@ -69,7 +69,7 @@
 
 (def state (r/atom
             {:draw (conj (vec (:standard drawn)) (:powerball drawn))
-             :winners []
+             :winners '()
              :plays 0
              :simulation nil
              :cost 0
@@ -81,7 +81,7 @@
         win? (not= 0 payout)
         s @state
         winners (if win?
-                  (conj (:winners s) pick)
+                  (cons pick (:winners s))
                   (:winners s))]
 
     (reset! state {:winners      winners
@@ -127,6 +127,7 @@
         results (conj (vec standard-results) powerball-result)]
     [:div
      (for [result results]
+       ^{:key result}
        [:span
         {:style (if (:match? result)
                   {:color "green"})}
@@ -147,9 +148,9 @@
   (let [{:keys [plays winners cost total-payout]} @state]
     [:div
      [:div "Plays: " plays]
-     [:div "Cost: " cost]
+     [:div "Cost: " (format "$%,12d" cost)]
      [:div "Wins: " (count winners)]
-     [:div "Payout: " total-payout]
+     [:div "Payout: " (format "$%,12d" total-payout)]
      [:div
       {:style {:color (if (< total-payout cost)
                         "red"
