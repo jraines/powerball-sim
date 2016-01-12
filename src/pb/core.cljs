@@ -99,9 +99,10 @@
     (js/clearInterval interval)
     (swap! state assoc :simulation nil)))
 
-;;;;;;;;;;;;;;;;
+
+;-----------------
 ;; UI Components
-;;;;;;;;;;;;;;;;
+;-----------------
 
 (defn start-btn []
   (let [action (if (:simulation @state)
@@ -138,12 +139,13 @@
      ^{:key winner}
      [formatted-winner winner])])
 
+(defn winning-number []
+  (let [{:keys [draw]} @state]
+    [:div "Winning Number: " (clojure.string/join " " draw)]))
 
 (defn results []
-  (let [{:keys [draw plays
-                winners cost total-payout]} @state]
+  (let [{:keys [plays winners cost total-payout]} @state]
     [:div
-     [:div "Winning Number: " (clojure.string/join " " draw)]
      [:div "Plays: " plays]
      [:div "Cost: " cost]
      [:div "Wins: " (count winners)]
@@ -159,6 +161,7 @@
 (defn app []
   [:div
    {}
+   [winning-number]
    [start-btn]
    [results]])
 
@@ -166,6 +169,3 @@
 ;; Initialize app
 
 (r/render [app] (.getElementById js/document "app"))
-
-
-
