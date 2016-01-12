@@ -4,7 +4,19 @@ body{
   font-family: Arial;
 }
 
-#app{
+td.label{
+  text-align: left;
+  width: 50%
+}
+
+.results{
+  width: 40%;
+  margin: 0 auto;
+}
+
+td.value{
+  text-align: right;
+  width: 50%
 }
 
 #start-btn{

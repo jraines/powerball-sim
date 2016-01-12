@@ -146,25 +146,36 @@
 
 (defn results []
   (let [{:keys [plays winners cost total-payout]} @state]
-    [:div
-     [:div "Plays: " plays]
-     [:div "Cost: " (format "$%,12d" cost)]
-     [:div "Wins: " (count winners)]
-     [:div "Payout: " (format "$%,12d" total-payout)]
-     [:div
-      {:style {:color (if (< total-payout cost)
-                        "red"
-                        "green")}}
-      "Profit: " (- total-payout cost)]
-     [:h2 "Winners"]
-     [winners-list winners]]))
+    [:table.results
+     [:tr
+      [:td.label "Plays: "]
+      [:td.value plays]]
+     [:tr
+      [:td.label "Cost: "]
+      [:td.value (.toLocaleString cost js/undefined #js {:style "currency" :currency "USD"})]]
+     [:tr
+      [:td.label "Wins: "]
+      [:td.value (count winners)]]
+     [:tr
+      [:td.label "Payout: "]
+      [:td.value (.toLocaleString total-payout js/undefined #js {:style "currency" :currency "USD"})]]
+     [:tr
+      [:td.label "Profit: "]
+      [:td.value
+       {:style {:color (if (< total-payout cost)
+                         "red"
+                         "green")}}
+       (.toLocaleString (- total-payout cost) js/undefined #js {:style "currency" :currency "USD"})]]]))
 
 (defn app []
   [:div
    {}
    [winning-number]
    [start-btn]
-   [results]])
+   [results]
+   [:h2 "Winners"]
+   [winners-list (:winners @state)]
+   ])
 
 ;; -------------------------
 ;; Initialize app
