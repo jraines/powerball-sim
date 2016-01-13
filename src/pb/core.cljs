@@ -2,8 +2,6 @@
   (:require [reagent.core :as r :refer [atom]]))
 
 (enable-console-print!)
-;; -------------------------
-;; Views
 
 (defn draw-standard []
   "draw 5 balls, removing a ball each time"
@@ -18,9 +16,11 @@
                drawn)))))
 
 (defn draw-powerball []
+  "draw the power ball"
   (+ 1 (rand-int 16)))
 
 (defn draw []
+  "draw all the standard balls plus the powerball; stash a set for checking winning numbers"
   (let [standard (draw-standard)
         standard-set (set standard)]
     {:standard (sort standard)
@@ -30,11 +30,13 @@
 (def drawn (draw))
 
 (defn pick []
+  "Make the pick for a single ticket play"
   (let [standard (draw-standard)
         powerball (draw-powerball)]
     (conj (vec (sort standard)) powerball)))
 
 (defn hit? [num]
+  "Check if one of the standard balls matches your one of your picks"
   ((:standard-set drawn) num))
 
 (defn powerball-hit? [num]
@@ -76,6 +78,7 @@
              :total-payout 0}))
 
 (defn play []
+  "Compare one ticket to the winning number and update the state of the simulation"
   (let [pick (pick)
         payout (payout (hits pick))
         win? (not= 0 payout)
@@ -92,9 +95,11 @@
                    :total-payout (+ payout (:total-payout s))})))
 
 (defn simulate []
+  "Run the simulation repeatedly, store the interval in app state"
   (swap! state assoc :simulation (js/setInterval play 25)))
 
 (defn stop-simulation []
+  "Clear the interval and remove it from the app state; stop simulating"
   (let [interval (:simulation @state)]
     (js/clearInterval interval)
     (swap! state assoc :simulation nil)))
@@ -118,6 +123,7 @@
 
 
 (defn formatted-winner [w]
+  "Color each number green if it is a match with a winning number"
   (let [standard-results (for [num (take 5 w)]
                            {:num num
                             :match? (contains? (:standard-set drawn)
