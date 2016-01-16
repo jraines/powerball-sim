@@ -116,10 +116,10 @@
         text (if (:simulation @state)
                "Stop"
                "Start")]
-  [:div
-   {:id "start-btn"
-    :on-click action}
-   text]))
+   [:div
+    {:id "start-btn"
+     :on-click action}
+    text]))
 
 
 (defn formatted-winner [w]
@@ -180,8 +180,8 @@
    [start-btn]
    [results]
    [:h2 "Winners"]
-   [winners-list (:winners @state)]
-   ])
+   [winners-list (:winners @state)]])
+
 
 ;; -------------------------
 ;; Initialize app
