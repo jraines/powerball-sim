@@ -1,10 +1,15 @@
 # pb
 
-FIXME: Write a one-line description of your library/project.
+Powerball simulator
 
 ## Overview
 
-FIXME: Write a paragraph about the library/project and highlight its goals.
+
+To set the cljs REPL to use node instead of rhino:
+
+Issue <kbd>M-x</kbd> `customize-variable` <kbd>RET</kbd> `cider-cljs-lein-repl` if
+   you'd like to change the REPL used (the default is `rhino`).
+
 
 ## Setup
 
