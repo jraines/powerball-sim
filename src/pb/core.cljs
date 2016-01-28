@@ -1,5 +1,6 @@
 (ns pb.core
-  (:require [reagent.core :as r :refer [atom]]))
+  (:require [reagent.core :as r :refer [atom]]
+            [pb.core-test :as test]))
 
 (enable-console-print!)
 
