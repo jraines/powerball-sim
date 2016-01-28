@@ -37,10 +37,23 @@
                ;; lein cljsbuild once min
                {:id "min"
                 :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/pb.js"
+                :compiler {:output-to "resources/public/js/compiled/pb-min.js"
                            :main pb.core
                            :optimizations :advanced
-                           :pretty-print false}}]}
+                           :pretty-print false}}
+
+               {:id "test"
+                :source-paths ["src" "test"]
+                :compiler {:output-to "resources/public/js/compiled/pb-test.js"
+                           :main test
+                           :optimizations :whitespace
+                           :parallel-build true
+                           :pretty-print true}}]
+
+              :test-commands {"unit" ["phantomjs"
+                                      "resources/test/phantom/runner.js"
+                                      "resources/test/test.html"]}}
+
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
              ;; :server-port 3449 ;; default

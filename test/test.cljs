@@ -1,9 +1,5 @@
 (ns test
-  (:require  [cljs.test :refer-macros [run-all-tests]]
-             [pb.core-test :as test]))
+  (:require  [cljs.test :refer-macros [run-all-tests]]))
 
-(defn run []
+(defn ^:export run []
   (run-all-tests #"pb.*-test"))
-
-(run)
-

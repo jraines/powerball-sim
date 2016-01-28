@@ -1,6 +1,5 @@
 (ns pb.core
-  (:require [reagent.core :as r :refer [atom]]
-            [pb.core-test :as test]))
+  (:require [reagent.core :as r :refer [atom]]))
 
 (enable-console-print!)
 
@@ -17,7 +16,7 @@
                drawn)))))
 
 (defn draw-powerball []
-  "draw the power ball"
+  "draw the powerball"
   (+ 1 (rand-int 16)))
 
 (defn draw []
@@ -49,7 +48,7 @@
 
 (defn payout-with-powerball [hits]
   (condp = (count (:hits hits))
-    5 1500000000
+    5 1300000000
     4 50000
     3 100
     2 7
@@ -184,7 +183,8 @@
    [winners-list (:winners @state)]])
 
 
-;; -------------------------
+;; ------------------------
 ;; Initialize app
+
 
 (r/render [app] (.getElementById js/document "app"))
